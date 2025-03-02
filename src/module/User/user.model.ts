@@ -1,5 +1,5 @@
-import { model, Schema } from "mongoose";
-import { IUser } from "./user.interface";
+import mongoose, { model, Schema } from "mongoose";
+import { IUser, UserModel } from "./user.interface";
 import bcrypt from 'bcrypt';
 const userSchema = new Schema<IUser>({
     name: {
@@ -22,8 +22,10 @@ const userSchema = new Schema<IUser>({
     },
     role: {
         type: String,
-        required: true
     },
+    profileImg: {
+        type: String,
+    }
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {
@@ -36,5 +38,9 @@ userSchema.post('save', function (doc, next) {
     doc.password = '';
     next();
  });
+
+ userSchema.statics.isPasswordMatch = async function (plainPassword: string, hashedPassword: string) {
+       return await bcrypt.compare(plainPassword,hashedPassword);
+};  
  
-export const User=model<IUser>('User', userSchema);
+export const User=model<IUser,UserModel>('User', userSchema);
