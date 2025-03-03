@@ -6,7 +6,7 @@ const categorySchema=new mongoose.Schema<ICategory>({
         required: true
     },
     icon: {
-        type: String,
+        type: [String],
     },
 },{timestamps: true});
 

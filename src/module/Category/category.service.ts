@@ -1,14 +1,16 @@
 import AppError from "../../error/appError";
-import { sendImageToCloudinary } from "../../Utils/fileUploadHelpers";
+import { sendImagesToCloudinary } from "../../Utils/fileUploadHelpers";
+
 import { CategoryModel } from "./category.model";
 
 
-const createCategory = async (file: Express.Multer.File,data:Partial<ICategory>) => {
+const createCategory = async (files: Express.Multer.File[],data:Partial<ICategory>) => {
     try{
-        const imageName="imageName"
-        const path=file?.path
-        const {secure_url}=await sendImageToCloudinary(imageName,path)
-       data.icon=secure_url
+        if (!files || files.length === 0) {
+            throw new AppError(400, "Please provide a file");
+        }
+        const uploadedImages=await sendImagesToCloudinary(files)
+       data.icon=uploadedImages
        console.log(data);
        const result=await CategoryModel.create(data);
        return result
@@ -17,6 +19,11 @@ const createCategory = async (file: Express.Multer.File,data:Partial<ICategory>)
     }
 };
 
+const getCategory=async()=>{
+    const result=await CategoryModel.find();
+    return result
+}
 export const CategoryService={
-    createCategory
+    createCategory,
+    getCategory
 }

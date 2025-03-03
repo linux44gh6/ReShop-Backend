@@ -5,6 +5,9 @@ import { parseBody } from "../../Middlewares/bodyParser";
 
 const router=Router()
 
-router.post('/',upload.single('icon'),parseBody, CategoryController.createCategory)
+router.post("/", upload.array("icon", 5), parseBody, CategoryController.createCategory);
+
+
+router.get('/',CategoryController.getCategory)
 
 export const categoryRoute=router
