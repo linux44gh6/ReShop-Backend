@@ -18,6 +18,7 @@ const login=async(payload:Partial<IUser>)=>{
         throw new AppError(StatusCodes.BAD_REQUEST,"Password Not Matched");
     }
     const jwtPayload={
+        _id:user._id,
         name:user.name,
         email:user.email,
         phone_number:user.phone_number,

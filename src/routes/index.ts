@@ -4,6 +4,8 @@ import { authRoute } from "../module/Auth/auth.routes";
 import { categoryRoute } from "../module/Category/category.routes";
 import { productRoute } from "../module/Product/product.routes";
 import { chatRoute } from "../module/Chat/chat.routes";
+import { transactionRoute } from "../module/Transaction/transaction.routes";
+import { stripePaymentRouter } from "../module/Payment/payment.routes";
 
 const router=Router();
 const moduleRouter=[
@@ -26,6 +28,14 @@ const moduleRouter=[
     {
         path:'/chat',
         route:chatRoute
+    },
+    {
+        path:'/transaction',
+        route:transactionRoute
+    },
+    {
+        path:'/payment',
+        route:stripePaymentRouter
     },
 ]
 moduleRouter.forEach((route)=>router.use(route.path,route.route));

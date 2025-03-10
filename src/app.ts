@@ -10,10 +10,15 @@ const app: Application = express();
 
 //using middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
+app.use(cors({
+  origin:'http://localhost:3000',
+  credentials:true,}));
+
+  app.use(express.urlencoded({ extended: true })); //for form data
 //using router
 app.use('/',router)
+
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });

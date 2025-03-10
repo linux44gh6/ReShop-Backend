@@ -10,5 +10,7 @@ export default {
   node_env: process.env.NODE_ENV,
   cloudinary_cloud_name: process.env.CLOUD_NAME,
   cloudinary_api_key: process.env.CLOUD_API,
-  cloudinary_api_secret:process.env.CLOUD_API_SECRET
+  cloudinary_api_secret:process.env.CLOUD_API_SECRET,
+  secret_key: process.env.SECRET_KEY,
+  client_url: process.env.CLIENT_URL
 };

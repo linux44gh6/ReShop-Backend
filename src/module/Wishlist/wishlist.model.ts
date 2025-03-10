@@ -1,7 +1,7 @@
 import mongoose, { Types } from "mongoose";
-import { IProduct } from "./product.interface";
+import { IWishlist } from "./wishlist.interface";
 
-const productSchema = new mongoose.Schema<IProduct>({
+const productSchema = new mongoose.Schema<IWishlist>({
     title: {
         type: String,
         required: true
@@ -41,4 +41,4 @@ const productSchema = new mongoose.Schema<IProduct>({
     }
 },{timestamps: true});
 
-export const ProductModel = mongoose.model<IProduct>('Product', productSchema);
+export const WishlistModel = mongoose.model<IWishlist>('Wishlist', productSchema);

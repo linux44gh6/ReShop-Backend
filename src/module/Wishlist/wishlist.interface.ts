@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 
-export interface IProduct {
+export interface IWishlist {
     title: string;
     description: string;
     price: string;

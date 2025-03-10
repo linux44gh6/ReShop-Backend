@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { CategoryController } from "./category.controller";
-import upload from "../../Utils/fileUploadHelpers";
-import { parseBody } from "../../Middlewares/bodyParser";
-
+import { CategoryValidation } from "./category.validation";
+import { validateRequest } from "../../Middlewares/validateRequest";
+import auth from "../../Middlewares/Auth/auth";
+import { userRole } from "../User/user.interface";
 const router=Router()
-
-router.post("/", upload.array("icon", 5), parseBody, CategoryController.createCategory);
+router.post("/",auth(userRole.ADMIN), validateRequest(CategoryValidation.CategoryValidationSchema) ,CategoryController.createCategory);
 
 
 router.get('/',CategoryController.getCategory)

@@ -4,12 +4,8 @@ import { sendResponse } from "../../Utils/SendResponse";
 import { CategoryService } from "./category.service";
 
 const createCategory = CatchAsync(async (req, res) => {
-    const files = req.files as Express.Multer.File[]; 
     const data = req.body;
-    if (!files || files.length === 0 || !data) {
-        throw new AppError(400, "Please provide at least one image and category data");
-    }
-    const result = await CategoryService.createCategory(files, data);
+    const result = await CategoryService.createCategory(data);
     sendResponse(res, {
         success: true,
         message: "Category Created Successfully",
