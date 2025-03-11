@@ -106,7 +106,6 @@ class QueryBuilder<T> {
     excludingImportant.forEach((key) => delete queryObj[key])
 
     this.modelQuery = this.modelQuery.find(queryObj);
-
     return this;
   }
 

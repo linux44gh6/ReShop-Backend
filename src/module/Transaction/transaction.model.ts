@@ -1,18 +1,20 @@
-import mongoose, { model } from "mongoose";
+import mongoose, { model, Types } from "mongoose";
 import Transaction from "./transaction.interface";
 
 const TransactionSchema = new mongoose.Schema<Transaction>({
     buyerID: {
-        type: String,
+        type:Types.ObjectId,
         required: true
     },
     sellerID: {
-        type: String,
-        required: true
+        type: Types.ObjectId,
+        required: true,
+        ref:'User'
     },
     itemID: {
-        type: String,
-        required: true
+        type: Types.ObjectId,
+        required: true,
+        ref:'Product'
     },
     status: {
         type: String,

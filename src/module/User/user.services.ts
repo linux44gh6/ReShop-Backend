@@ -20,9 +20,14 @@ const updateUser=async(id:string)=>{
     const result=await User.findByIdAndUpdate(id,{isBlocked:true},{new:true});
     return result
 }
+const updateProfile=async(id:string,payload:IUser)=>{
+    const result=await User.findByIdAndUpdate(id,payload,{new:true});
+    return result
+}
 export const userServices={
     getAllUser,
     getSingleUser,
     deleteUser,
-    updateUser
+    updateUser,
+    updateProfile
 }

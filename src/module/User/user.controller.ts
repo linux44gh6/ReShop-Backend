@@ -44,9 +44,22 @@ const updateUser=CatchAsync(async(req,res)=>{
         statusCode: 200
     })
 })
+
+const updateProfile=CatchAsync(async(req,res)=>{
+    const {id}=req.params
+    const payload=req.body
+    const result=await userServices.updateProfile(id,payload);
+    sendResponse(res,  {
+        success: true,
+        message: 'User Profile Updated Successfully',
+        data: result,
+        statusCode: 200
+    })
+})
 export const UserController={
     getAllUser,
     getSingleUser,
     deleteUser,
-    updateUser
+    updateUser,
+    updateProfile
 }

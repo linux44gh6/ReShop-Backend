@@ -6,6 +6,7 @@ import { productRoute } from "../module/Product/product.routes";
 import { chatRoute } from "../module/Chat/chat.routes";
 import { transactionRoute } from "../module/Transaction/transaction.routes";
 import { stripePaymentRouter } from "../module/Payment/payment.routes";
+import { wishlistRoute } from "../module/Wishlist/wishlist.routes";
 
 const router=Router();
 const moduleRouter=[
@@ -36,6 +37,10 @@ const moduleRouter=[
     {
         path:'/payment',
         route:stripePaymentRouter
+    },
+    {
+        path:'/wishlist',
+        route:wishlistRoute
     },
 ]
 moduleRouter.forEach((route)=>router.use(route.path,route.route));

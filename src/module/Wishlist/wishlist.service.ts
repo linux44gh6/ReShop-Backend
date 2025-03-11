@@ -6,10 +6,11 @@ const createWishlist = async ({payload}:{payload:IWishlist}) => {
     return result
 };
 
-const getWishlistByUser = async (id:string) => {
-    const result = await WishlistModel.findById(id);
-    return result
-}
+const getWishlistByUser = async (id: string) => {
+    const result = await WishlistModel.find({ userID: id }).populate("products");
+    return result;
+};
+
 
 const deleteWishlist = async (id:string) => {
     const result = await WishlistModel.findByIdAndDelete(id);

@@ -17,4 +17,6 @@ router.patch('/:id',
      validateRequest(TransactionValidation.TransactionUpdateValidationSchema),TransactionController.updateTransaction
     )
     
+    router.get('/user/:id',TransactionController.getTransactionByUser)
+    router.delete('/:id',TransactionController.deleteTransaction)
 export const transactionRoute=router

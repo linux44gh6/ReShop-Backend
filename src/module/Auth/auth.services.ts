@@ -3,7 +3,6 @@ import AppError from "../../error/appError";
 import { IUser } from "../User/user.interface";
 import { User } from "../User/user.model";
 import { createRefreshToken, createToken } from "./auth.constans";
-
 const register = async(payload:IUser) => {
     const result=await User.create(payload)
     return result;

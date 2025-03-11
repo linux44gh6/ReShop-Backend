@@ -23,6 +23,17 @@ const getTransaction=CatchAsync(async(req,res)=>{
     })
 })
 
+const getTransactionByUser=CatchAsync(async(req,res)=>{
+    const {id}=req.params
+    const result=await TransactionService.getTransactionByUser(id);
+    sendResponse(res,  {
+        success: true,
+        message: 'Transaction Retrive Successfully',
+        data: result,
+        statusCode: 200
+    })
+})
+
 const getSingleTransaction=CatchAsync(async(req,res)=>{
     const {id}=req.params
     const result=await TransactionService.getSingleTransaction(id);
@@ -45,9 +56,22 @@ const updateTransaction=CatchAsync(async(req,res)=>{
         statusCode: 200
     })
 })
+
+const deleteTransaction=CatchAsync(async(req,res)=>{
+    const {id}=req.params
+    const result=await TransactionService.deleteTransaction(id);
+    sendResponse(res,  {
+        success: true,
+        message: 'Transaction Deleted Successfully',
+        data: result,
+        statusCode: 200
+    })
+})
 export const TransactionController={
     createTransaction,
     getTransaction,
     getSingleTransaction,
-    updateTransaction
+    updateTransaction,
+    getTransactionByUser,
+    deleteTransaction
 }
