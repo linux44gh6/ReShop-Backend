@@ -1,4 +1,7 @@
 
+import { StatusCodes } from "http-status-codes"
+import AppError from "../../error/appError"
+import { User } from "../User/user.model"
 import ITransaction from "./transaction.interface"
 import { TransactionModel } from "./transaction.model"
 
@@ -11,6 +14,10 @@ const getTransaction=async()=>{
     return result
 }
 const getTransactionByUser=async(userId:string)=>{
+    const user=await User.findById(userId)
+    if(!user){
+        throw new AppError(StatusCodes.FORBIDDEN,"user not found")
+    }
     const result=await TransactionModel.find({buyerID:userId}).populate("itemID").populate("buyerID").populate("sellerID")
     return result
 }
@@ -23,6 +30,9 @@ const updateTransaction=async(id:string,payload:ITransaction)=>{
     return result
 }
 const deleteTransaction=async(id:string)=>{
+      if(!id){
+        throw new AppError(StatusCodes.NOT_FOUND,"id not found")
+    }
     const result=await TransactionModel.findByIdAndDelete(id)
     return result
 }

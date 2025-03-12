@@ -15,7 +15,7 @@ app.use(cors({
   origin:'http://localhost:3000',
   credentials:true,}));
 
-  app.use(express.urlencoded({ extended: true })); //for form data
+  app.use(express.urlencoded({ extended: true })); 
 //using router
 app.use('/',router)
 
