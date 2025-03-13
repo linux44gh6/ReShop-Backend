@@ -17,7 +17,7 @@ yarn dev
 
 4.check the .env config file
 
-5.npm run build
+5.npm run dev
 
 6.now you can check the api from postman
 
