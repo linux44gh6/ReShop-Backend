@@ -35,6 +35,42 @@ const createMessage = CatchAsync(async (req, res) => {
 });
 
 
+const deleteMessage = CatchAsync(async (req, res) => {
+    const {conversationId}=req.params
+  const user = req.user;
+
+  // Validate user
+  if (typeof user !== "object" || user === null || !("_id" in user)) {
+    res.status(401).json({ success: false, message: "Unauthorized user" });
+    return;
+  }
+  const senderId = (user as { _id: string })._id;
+  const result = await messageService.deleteMessage(conversationId, senderId);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Message deleted successfully",
+    data: result,
+  });
+})
+
+
+const getMessage=CatchAsync(async(req,res)=>{
+    const {productId}=req.params
+    const user = req.user;
+     if (typeof user !== "object" || user === null || !("_id" in user)) {
+    res.status(401).json({ success: false, message: "Unauthorized user" });
+    return;
+  }
+ const getMessage=await messageService.getMessage(productId,user._id)
+ sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Message fetched successfully",
+    data: getMessage,
+ })
+})
 export const messageController = {
-    createMessage
+    createMessage,
+    deleteMessage
 }
