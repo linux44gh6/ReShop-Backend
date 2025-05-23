@@ -3,28 +3,47 @@ import { StatusCodes } from "http-status-codes";
 import { sendResponse } from "../../Utils/SendResponse";
 import { CatchAsync } from "../../Utils/CatchAsync";
 import { messageService } from "./message.service";
+import { ProductModel } from "../Product/product.model";
 
 const createMessage = CatchAsync(async (req, res) => {
   const payload = req.body;
   const user = req.user;
 
-  // Validate user
   if (typeof user !== "object" || user === null || !("_id" in user)) {
     res.status(401).json({ success: false, message: "Unauthorized user" });
     return;
   }
 
-  const senderId = (user as { _id: string })._id;
-  payload.buyerId = senderId;
+  const userId = (user as { _id: string })._id;
+  const { productId } = payload;
 
-  // Attach senderId to each message item
+  const product = await ProductModel.findById(productId);
+  if (!product) {
+    res.status(404).json({ success: false, message: "Product not found" });
+    return;
+  }
+
+  const productOwnerId = product.userID.toString();
+
+  if (userId.toString() === productOwnerId) {
+    // Sender is seller
+    payload.sellerId = userId;
+    if (!payload.buyerId) {
+      res.status(400).json({ success: false, message: "buyerId is required when seller replies." });
+      return;
+    }
+  } else {
+    // Sender is buyer
+    payload.buyerId = userId;
+    payload.sellerId = productOwnerId;
+  }
+
   payload.message = payload.message.map((msg: any) => ({
     ...msg,
-    senderId,
+    senderId: userId,
   }));
 
-  // Create or update message
-  const result = await messageService.createMessage(payload);
+  const result = await messageService.createMessage(payload, user);
 
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
@@ -33,6 +52,7 @@ const createMessage = CatchAsync(async (req, res) => {
     data: result,
   });
 });
+
 
 
 const deleteMessage = CatchAsync(async (req, res) => {
@@ -70,7 +90,10 @@ const getMessage=CatchAsync(async(req,res)=>{
     data: getMessage,
  })
 })
+
+
 export const messageController = {
     createMessage,
-    deleteMessage
+    deleteMessage,
+    getMessage
 }

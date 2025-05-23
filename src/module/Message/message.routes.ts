@@ -8,4 +8,6 @@ const router=Router()
 
 router.post('/',auth(userRole.ADMIN,userRole.USER),messageController.createMessage)
 
+router.get('/:productId',auth(userRole.ADMIN,userRole.USER),messageController.getMessage)
+
 export const messageRouter=router

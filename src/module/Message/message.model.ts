@@ -3,9 +3,8 @@ import mongoose, { Schema, model, Types } from "mongoose";
 const messageItemSchema = new Schema(
   {
     senderId: { type: Types.ObjectId, ref: "User", required: true },
+    senderRole: { type: String, required: true }, // buyer or seller
     text: { type: String, required: true },
-    date: { type: Date, required: true },
-    
   },
   { _id: false,timestamps:true }
 );

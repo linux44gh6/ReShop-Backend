@@ -6,8 +6,8 @@ export type IMessage = {
   buyerId: ObjectId;
   message: {
     senderId: ObjectId;
+    senderRole: string; // "buyer" | "seller";
     text: string;
-    date: Date;
   }[];
   productId: ObjectId;
 };
