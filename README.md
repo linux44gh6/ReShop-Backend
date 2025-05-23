@@ -1,24 +1,36 @@
-Live server: https://re-shop-ten.vercel.app
+# 🛒 Re-Shop – Second Hand Product Selling Website
 
-This is Second Hand Product selling website.
+**Live Demo**: [https://re-shop-ten.vercel.app](https://re-shop-ten.vercel.app)
 
+Re-Shop is a full-stack web application where users can **buy and sell second-hand products**. Built using **Next.js**, **TypeScript**, and **TailwindCSS**, it features user authentication, admin controls, responsive UI, and RESTful APIs.
 
-## How to run this repo into you local computer
+---
 
-1.Clone this repo in local computer.
+## 🚀 Features
 
-First, run the development server:
+- 👤 User Authentication (Register / Login / JWT-based)
+- 🛍 Product Listing with images, categories, and condition tags
+- 🔍 Product Filtering by Category and Search
+- 📦 Add, Update, Delete Products (by Seller)
+- 📋 Admin Dashboard with product/user management
+- 💬 Contact and Product Inquiry support
+- 📱 Fully Responsive Design
+- 💡 Optimized SEO with Next.js
+- 🧾 API Integration (ready for Postman testing)
+- ☁️ Vercel-hosted with dynamic routing
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+---
 
-4.check the .env config file
+## 🛠️ Tech Stack
 
-5.npm run dev
+- **Frontend**: Next.js 14+, TypeScript, TailwindCSS, ShadCN UI
+- **Backend**: Next.js API Routes
+- **Authentication**: JWT
+- **Database**: MongoDB (via Mongoose or Prisma)
+- **Deployment**: Vercel
+- **Tools**: ESLint, Prettier, Postman
 
-6.now you can check the api from postman
+---
 
+## 📂 Project Structure
 
