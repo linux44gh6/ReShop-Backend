@@ -38,6 +38,11 @@ const productSchema = new mongoose.Schema<IProduct>({
     location: {
         type: String,
         required: true
+    },
+    productType: {
+        type: String,
+        default:"others",
+        required: true,
     }
 },{timestamps: true});
 

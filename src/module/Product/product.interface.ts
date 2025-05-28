@@ -9,5 +9,6 @@ export interface IProduct {
     userID: ObjectId; 
     status: "available" | "sold";
     category: ObjectId,
+    productType:string
     location: string
 }
