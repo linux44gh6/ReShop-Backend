@@ -1,23 +1,23 @@
-// import { Server, Socket } from "socket.io"
-// import { ChatService } from "./chat.service"
+import { Server, Socket } from "socket.io"
+import { ChatService } from "./chat.service"
 
 
-// export const chatSocket = (io: Server, socket: Socket) => {
-//   console.log("⚡ Client connected:", socket.id)
+export const chatSocket = (io: Server, socket: Socket) => {
+  console.log("⚡ Client connected:", socket.id)
 
-//   // fetch all messages
-//   socket.on("getMessages", async () => {
-//     const messages = await ChatService.getMessages()
-//     socket.emit("messages", messages)
-//   })
 
-//   // new message
-//   socket.on("sendMessage", async (msg) => {
-//     const saved = await ChatService.sendMessage(msg)
-//     io.emit("receiveMessage", saved) // broadcast
-//   })
+  socket.on("getMessages", async () => {
+    const messages = await ChatService.getMessages()
+    socket.emit("messages", messages)
+  })
 
-//   socket.on("disconnect", () => {
-//     console.log("❌ Client disconnected:", socket.id)
-//   })
-// }
+  // new message
+  socket.on("sendMessage", async (msg) => {
+    const saved = await ChatService.sendMessage(msg)
+    io.emit("receiveMessage", saved) // broadcast
+  })
+
+  socket.on("disconnect", () => {
+    console.log("❌ Client disconnected:", socket.id)
+  })
+}

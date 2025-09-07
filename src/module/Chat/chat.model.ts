@@ -4,13 +4,13 @@ import { IMessage } from "./chat.interface";
 const chatSchema = new mongoose.Schema<IMessage>({
   receiver: {
     type: String,
-    required: true,   // ✅ fix
+    required: true,  
   },
   sender: {
     type: String,
     required: true,
   },
-  message: {          // ✅ must match the field you send
+  message: {          
     type: String,
     required: true,
   },
