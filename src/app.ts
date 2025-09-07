@@ -1,29 +1,44 @@
-import { Application, Request, Response } from 'express';
+import { Application, Request, Response } from "express"
+import { Server, Socket } from "socket.io"
+import cors from "cors"
+import express from "express"
+import router from "./routes"
+import { notFound } from "./Middlewares/Not_Found"
+import globalErrorHandler from "./Middlewares/globalErrorHandlers"
+import http from "http"
 
-import cors from 'cors';
-import express from 'express';
-import router from './routes';
-import { notFound } from './Middlewares/Not_Found';
-import globalErrorHandler from './Middlewares/globalErrorHandlers';
 
-const app: Application = express();
+const app: Application = express()
+const server = http.createServer(app)
 
-//using middleware
-app.use(express.json());
-
+// Middleware
+app.use(express.json())
 app.use(cors({
-  origin:'http://localhost:3000',
-  credentials:true,}));
+  origin: "http://localhost:3000",
+  credentials: true,
+}))
+app.use(express.urlencoded({ extended: true }))
 
-  app.use(express.urlencoded({ extended: true })); 
-//using router
-app.use('/',router)
+// Routes
+app.use("/", router)
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
-});
+// Setup Socket.IO
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+})
 
-app.use(notFound);
-app.use(globalErrorHandler);
 
-export default app;
+  // Save and broadcast a new message
+  
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello World!")
+})
+
+// Error handlers
+app.use(notFound)
+app.use(globalErrorHandler)
+
+export { app, server }   // ⬅️ export both, since server is used in index.ts

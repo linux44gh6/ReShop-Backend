@@ -1,9 +1,10 @@
 import { Server } from 'http';
-import app from './app';  
+
 import config from './app/config';
 import mongoose from 'mongoose';
 import { setupSocket } from './Utils/webSoket';
 import { Server as SocketIOServer } from 'socket.io';
+import { app } from './app';
 
 let server: Server;
  
